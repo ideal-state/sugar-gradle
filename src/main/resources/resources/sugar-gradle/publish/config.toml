@@ -1,0 +1,33 @@
+## 描述（可选）
+#description = ""
+## 主页地址（可选）
+#url = "https://github.com/ideal-state/sugar"
+## 起始年份（可选）
+#inceptionYear = "2024"
+#
+## 组织信息（可选）
+#[organization]
+#name = "ideal-state"
+#url = "https://github.com/ideal-state"
+#
+## 版本控制信息（可选）
+#[scm]
+#url = "https://github.com/ideal-state/sugar/tree/master"
+#connection = "scm:git:git://github.com/ideal-state/sugar.git"
+#developerConnection = "scm:git:ssh://github.com:ideal-state/sugar.git"
+#
+## 许可证信息（可选）
+#[license]
+#name = "The Apache License, Version 2.0"
+#url = "https://www.apache.org/licenses/LICENSE-2.0.txt"
+#
+## 项目开发者信息（可选）
+#[[developers]]
+#id = "F2C2163FC18279C2"
+#name = "ketikai"
+#email = "ketikai@idealstate.team"
+#
+##[[developers]]
+##name = "xxx"
+##email = "xxx@xxx.xxx"
+##key = "XXXXXXXXXXXXXXXX"
