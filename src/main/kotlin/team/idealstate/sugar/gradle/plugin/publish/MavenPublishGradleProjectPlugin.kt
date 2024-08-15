@@ -22,14 +22,14 @@ import org.gradle.api.publish.PublishingExtension
 import org.gradle.api.publish.maven.MavenPublication
 import org.gradle.plugins.signing.SigningExtension
 import team.idealstate.sugar.gradle.plugin.ConfigSupport
-import team.idealstate.sugar.gradle.plugin.ConfigurableGradlePlugin
+import team.idealstate.sugar.gradle.plugin.ConfigurableGradleProjectPlugin
 import team.idealstate.sugar.gradle.plugin.PluginMetadata
-import team.idealstate.sugar.gradle.plugin.SugarGradlePlugin
-import team.idealstate.sugar.gradle.plugin.java.JavaGradlePlugin
+import team.idealstate.sugar.gradle.plugin.SugarGradleProjectPlugin
+import team.idealstate.sugar.gradle.plugin.java.JavaGradleProjectPlugin
 import team.idealstate.sugar.gradle.plugin.publish.config.PublicationConfig
 
 @PluginMetadata("team.idealstate.sugar.gradle.plugin.publish", "sugar-gradle", "publish")
-open class MavenPublishGradlePlugin : ConfigurableGradlePlugin<PublicationConfig>(
+open class MavenPublishGradleProjectPlugin : ConfigurableGradleProjectPlugin<PublicationConfig>(
     ConfigSupport.TOML,
     DEFAULT_CONFIG_NAME,
     PublicationConfig::class.java
@@ -37,8 +37,8 @@ open class MavenPublishGradlePlugin : ConfigurableGradlePlugin<PublicationConfig
 
     init {
         dependsOn(
-            PluginMetadata.of(SugarGradlePlugin::class.java).id,
-            PluginMetadata.of(JavaGradlePlugin::class.java).id,
+            PluginMetadata.of(SugarGradleProjectPlugin::class.java).id,
+            PluginMetadata.of(JavaGradleProjectPlugin::class.java).id,
             "maven-publish"
         )
     }

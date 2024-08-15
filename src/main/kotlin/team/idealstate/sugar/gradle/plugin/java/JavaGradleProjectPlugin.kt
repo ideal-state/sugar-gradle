@@ -27,26 +27,26 @@ import org.gradle.jvm.toolchain.JavaLanguageVersion
 import org.gradle.jvm.toolchain.JvmVendorSpec
 import org.gradle.language.jvm.tasks.ProcessResources
 import team.idealstate.sugar.gradle.plugin.ConfigSupport
-import team.idealstate.sugar.gradle.plugin.ConfigurableGradlePlugin
+import team.idealstate.sugar.gradle.plugin.ConfigurableGradleProjectPlugin
 import team.idealstate.sugar.gradle.plugin.PluginMetadata
-import team.idealstate.sugar.gradle.plugin.SugarGradlePlugin
+import team.idealstate.sugar.gradle.plugin.SugarGradleProjectPlugin
 import team.idealstate.sugar.gradle.plugin.java.config.JavaConfig
-import team.idealstate.sugar.gradle.plugin.repository.RepositoryGradlePlugin
+import team.idealstate.sugar.gradle.plugin.repository.RepositoryGradleProjectPlugin
 import java.io.File
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 
 @PluginMetadata("team.idealstate.sugar.gradle.plugin.java", "sugar-gradle", "java")
-open class JavaGradlePlugin : ConfigurableGradlePlugin<JavaConfig>(
+open class JavaGradleProjectPlugin : ConfigurableGradleProjectPlugin<JavaConfig>(
     ConfigSupport.TOML,
     DEFAULT_CONFIG_NAME,
     JavaConfig::class.java
 ) {
 
     init {
-        super.dependsOn(
-            PluginMetadata.of(SugarGradlePlugin::class.java).id,
-            PluginMetadata.of(RepositoryGradlePlugin::class.java).id,
+        dependsOn(
+            PluginMetadata.of(SugarGradleProjectPlugin::class.java).id,
+            PluginMetadata.of(RepositoryGradleProjectPlugin::class.java).id,
             "java",
             "java-library"
         )
@@ -173,6 +173,10 @@ open class JavaGradlePlugin : ConfigurableGradlePlugin<JavaConfig>(
     private fun configureJavadocTask(encoding: String) {
         val doclet = project.configurations.register("doclet").get()
         project.tasks.named("javadoc", Javadoc::class.java) {
+            it.dependsOn(
+                "copyCopyright",
+                "copyDependencyCopyright"
+            )
             it.options { options ->
                 val docletFiles = doclet.allArtifacts.files.files
                 if (docletFiles.isEmpty()) {
@@ -189,7 +193,7 @@ open class JavaGradlePlugin : ConfigurableGradlePlugin<JavaConfig>(
                 options.encoding(encoding)
                 options.locale("zh_CN")
                 options.windowTitle("${project.name}-${project.version} API")
-                options.jFlags("-D'file.encoding'=${encoding}")
+                options.jFlags("-Dfile.encoding=${encoding}")
             }
         }
     }

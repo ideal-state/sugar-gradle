@@ -18,43 +18,43 @@ import org.gradle.api.plugins.ObjectConfigurationAction
 import org.gradle.plugin.use.PluginDependenciesSpec
 import org.gradle.plugin.use.PluginDependencySpec
 import team.idealstate.sugar.gradle.plugin.PluginMetadata
-import team.idealstate.sugar.gradle.plugin.SugarGradlePlugin
-import team.idealstate.sugar.gradle.plugin.java.JavaGradlePlugin
-import team.idealstate.sugar.gradle.plugin.publish.MavenPublishGradlePlugin
-import team.idealstate.sugar.gradle.plugin.repository.RepositoryGradlePlugin
+import team.idealstate.sugar.gradle.plugin.SugarGradleProjectPlugin
+import team.idealstate.sugar.gradle.plugin.java.JavaGradleProjectPlugin
+import team.idealstate.sugar.gradle.plugin.publish.MavenPublishGradleProjectPlugin
+import team.idealstate.sugar.gradle.plugin.repository.RepositoryGradleProjectPlugin
 
 val PluginDependenciesSpec.sugar_gradle: PluginDependencySpec
-    get() = id(PluginMetadata.of(SugarGradlePlugin::class.java).id)
+    get() = id(PluginMetadata.of(SugarGradleProjectPlugin::class.java).id)
 
 val PluginDependenciesSpec.sugar_repository: PluginDependencySpec
-    get() = id(PluginMetadata.of(RepositoryGradlePlugin::class.java).id)
+    get() = id(PluginMetadata.of(RepositoryGradleProjectPlugin::class.java).id)
 
 val PluginDependenciesSpec.sugar_java: PluginDependencySpec
-    get() = id(PluginMetadata.of(JavaGradlePlugin::class.java).id)
+    get() = id(PluginMetadata.of(JavaGradleProjectPlugin::class.java).id)
 
 val PluginDependenciesSpec.sugar_publish: PluginDependencySpec
-    get() = id(PluginMetadata.of(MavenPublishGradlePlugin::class.java).id)
+    get() = id(PluginMetadata.of(MavenPublishGradleProjectPlugin::class.java).id)
 
 val ObjectConfigurationAction.sugar_gradle: ObjectConfigurationAction
     get() {
-        plugin(SugarGradlePlugin::class.java)
+        plugin(SugarGradleProjectPlugin::class.java)
         return this
     }
 
 val ObjectConfigurationAction.sugar_repository: ObjectConfigurationAction
     get() {
-        plugin(RepositoryGradlePlugin::class.java)
+        plugin(RepositoryGradleProjectPlugin::class.java)
         return this
     }
 
 val ObjectConfigurationAction.sugar_java: ObjectConfigurationAction
     get() {
-        plugin(JavaGradlePlugin::class.java)
+        plugin(JavaGradleProjectPlugin::class.java)
         return this
     }
 
 val ObjectConfigurationAction.sugar_publish: ObjectConfigurationAction
     get() {
-        plugin(MavenPublishGradlePlugin::class.java)
+        plugin(MavenPublishGradleProjectPlugin::class.java)
         return this
     }

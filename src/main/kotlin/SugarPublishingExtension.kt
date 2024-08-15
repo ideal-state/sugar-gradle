@@ -14,9 +14,76 @@
  *    limitations under the License.
  */
 
+import org.gradle.api.Action
+import org.gradle.api.Project
+import org.gradle.api.artifacts.dsl.RepositoryHandler
+import org.gradle.api.artifacts.repositories.MavenArtifactRepository
 import org.gradle.api.publish.PublicationContainer
 import org.gradle.api.publish.maven.MavenPublication
+import java.net.URI
 
 
 val PublicationContainer.sugarPublication: MavenPublication
     get() = named("sugar", MavenPublication::class.java).get()
+
+fun MavenArtifactRepository.login() {
+    val id = name.replace(' ', '-').lowercase()
+    credentials {
+        it.username = System.getProperty(
+            "sugar.publish.$id.key"
+        )
+        it.password = System.getProperty(
+            "sugar.publish.$id.secret"
+        )
+    }
+}
+
+fun MavenArtifactRepository.login(project: Project) {
+    val id = name.replace(' ', '-').lowercase()
+    credentials {
+        it.username = project.property(
+            "sugar.publish.$id.key"
+        ) as String
+        it.password = project.property(
+            "sugar.publish.$id.secret"
+        ) as String
+    }
+}
+
+fun RepositoryHandler.aliyun(): MavenArtifactRepository {
+    return maven {
+        it.name = "Aliyun"
+        it.url = URI.create("https://maven.aliyun.com/repository/public/")
+    }
+}
+
+fun RepositoryHandler.sonatype(): MavenArtifactRepository {
+    return maven {
+        it.name = "Sonatype"
+        it.url = URI.create("https://s01.oss.sonatype.org/content/groups/public/")
+    }
+}
+
+fun RepositoryHandler.sonatypeReleases(action: Action<MavenArtifactRepository> = Action {}): MavenArtifactRepository {
+    return maven {
+        it.name = "Sonatype-Releases"
+        it.url = URI.create("https://s01.oss.sonatype.org/content/repositories/releases/")
+        action.execute(it)
+    }
+}
+
+fun RepositoryHandler.sonatypeSnapshots(action: Action<MavenArtifactRepository> = Action {}): MavenArtifactRepository {
+    return maven {
+        it.name = "Sonatype-Snapshots"
+        it.url = URI.create("https://s01.oss.sonatype.org/content/repositories/snapshots/")
+        action.execute(it)
+    }
+}
+
+fun RepositoryHandler.sonatypeStaging(action: Action<MavenArtifactRepository>): MavenArtifactRepository {
+    return maven {
+        it.name = "Sonatype-Staging"
+        it.url = URI.create("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
+        action.execute(it)
+    }
+}

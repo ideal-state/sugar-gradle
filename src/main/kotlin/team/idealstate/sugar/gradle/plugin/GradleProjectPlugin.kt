@@ -18,7 +18,7 @@ package team.idealstate.sugar.gradle.plugin
 
 import org.gradle.api.Project
 
-abstract class GradlePlugin : org.gradle.api.Plugin<Project> {
+abstract class GradleProjectPlugin : org.gradle.api.Plugin<Project> {
 
     private var applied: Project? = null
         set(value) {

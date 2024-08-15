@@ -16,25 +16,11 @@
 
 package team.idealstate.sugar.gradle.plugin
 
-import kotlin.reflect.KClass
+import org.gradle.api.Plugin
+import org.gradle.api.initialization.Settings
 
-@Target(AnnotationTarget.CLASS)
-@Retention(AnnotationRetention.RUNTIME)
-@MustBeDocumented
-annotation class PluginMetadata(
-    val id: String,
-    val group: String,
-    val name: String
-) {
-    companion object {
-        @JvmStatic
-        fun of(type: KClass<out GradleProjectPlugin>): PluginMetadata {
-            return of(type.java)
-        }
+open class SugarGradleSettingsPlugin: Plugin<Settings> {
+    override fun apply(target: Settings) {
 
-        @JvmStatic
-        fun of(type: Class<out GradleProjectPlugin>): PluginMetadata {
-            return type.getDeclaredAnnotation(PluginMetadata::class.java)!!
-        }
     }
 }

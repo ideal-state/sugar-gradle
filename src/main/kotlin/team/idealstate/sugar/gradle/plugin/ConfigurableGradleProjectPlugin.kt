@@ -18,11 +18,11 @@ package team.idealstate.sugar.gradle.plugin
 
 import java.io.File
 
-abstract class ConfigurableGradlePlugin<C>(
+abstract class ConfigurableGradleProjectPlugin<C>(
     private val configSupport: ConfigSupport,
     private val configName: String,
     private val configType: Class<C>
-) : GradlePlugin() {
+) : GradleProjectPlugin() {
 
     val config: C by lazy {
         configSupport
