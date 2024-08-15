@@ -19,16 +19,19 @@
 
 ### 如何使用
 
+> 在 `settings.gradle` 或 `settings.gradle.kts` 中添加插件，
+> 而不是 `build.gradle` 或 `build.gradle.kts` 中。
+
 #### Gradle
 ```groovy
-// build.gradle
+// settings.gradle
 plugins {
     id "team.idealstate.sugar.gradle.plugin" version "${version}"
 }
 ```
 
 ```kotlin
-// build.gradle.kts
+// settings.gradle.kts
 plugins {
     id("team.idealstate.sugar.gradle.plugin") version "$version"
 }
