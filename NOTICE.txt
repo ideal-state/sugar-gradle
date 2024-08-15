@@ -16,3 +16,27 @@
    limitations under the License.
 
 ------------------------------------------------------------------------------
+
+    gradle
+    (https://github.com/gradle/gradle)
+    Apache License 2.0
+
+------------------------------------------------------------------------------
+
+    kotlin
+    (https://github.com/JetBrains/kotlin)
+    Apache License 2.0
+
+------------------------------------------------------------------------------
+
+    jackson-dataformat-toml
+    (https://github.com/justdb/jackson-dataformat-toml)
+    Apache License 2.0
+
+------------------------------------------------------------------------------
+
+    jackson-module-kotlin
+    (https://github.com/FasterXML/jackson-module-kotlin)
+    Apache License 2.0
+
+------------------------------------------------------------------------------

@@ -17,28 +17,23 @@
 import org.gradle.api.plugins.ObjectConfigurationAction
 import org.gradle.plugin.use.PluginDependenciesSpec
 import org.gradle.plugin.use.PluginDependencySpec
-import team.idealstate.sugar.gradle.plugin.Metadata
+import team.idealstate.sugar.gradle.plugin.PluginMetadata
 import team.idealstate.sugar.gradle.plugin.SugarGradlePlugin
 import team.idealstate.sugar.gradle.plugin.java.JavaGradlePlugin
 import team.idealstate.sugar.gradle.plugin.publish.MavenPublishGradlePlugin
 import team.idealstate.sugar.gradle.plugin.repository.RepositoryGradlePlugin
 
-/**
- * @date 2024/3/20 22:50
- * @author ketikai
- * @since 1.0.0
- */
 val PluginDependenciesSpec.sugar_gradle: PluginDependencySpec
-    get() = id(Metadata.of(SugarGradlePlugin::class.java).id)
+    get() = id(PluginMetadata.of(SugarGradlePlugin::class.java).id)
 
 val PluginDependenciesSpec.sugar_repository: PluginDependencySpec
-    get() = id(Metadata.of(RepositoryGradlePlugin::class.java).id)
+    get() = id(PluginMetadata.of(RepositoryGradlePlugin::class.java).id)
 
 val PluginDependenciesSpec.sugar_java: PluginDependencySpec
-    get() = id(Metadata.of(JavaGradlePlugin::class.java).id)
+    get() = id(PluginMetadata.of(JavaGradlePlugin::class.java).id)
 
 val PluginDependenciesSpec.sugar_publish: PluginDependencySpec
-    get() = id(Metadata.of(MavenPublishGradlePlugin::class.java).id)
+    get() = id(PluginMetadata.of(MavenPublishGradlePlugin::class.java).id)
 
 val ObjectConfigurationAction.sugar_gradle: ObjectConfigurationAction
     get() {

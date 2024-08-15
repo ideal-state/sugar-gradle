@@ -18,11 +18,6 @@ package team.idealstate.sugar.gradle.plugin
 
 import org.gradle.api.Project
 
-/**
- * @date 2024/3/19 17:45
- * @author ketikai
- * @since 1.0.0
- */
 abstract class GradlePlugin : org.gradle.api.Plugin<Project> {
 
     private var applied: Project? = null
@@ -35,8 +30,8 @@ abstract class GradlePlugin : org.gradle.api.Plugin<Project> {
     protected val project: Project
         get() = applied!!
     private val depends: MutableSet<String> = linkedSetOf()
-    protected val metadata: Metadata by lazy {
-        Metadata.of(javaClass)
+    protected val metadata: PluginMetadata by lazy {
+        PluginMetadata.of(javaClass)
     }
 
     final override fun apply(target: Project) {

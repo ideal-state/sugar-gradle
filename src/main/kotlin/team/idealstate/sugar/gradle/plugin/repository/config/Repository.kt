@@ -22,14 +22,9 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer
 import java.net.URI
 
-/**
- * @date 2024/3/20 17:01
- * @author ketikai
- * @since 1.0.0
- */
 data class Repository(
     @JsonDeserialize(using = Type.Deserializer::class)
-    val type: Type,
+    val type: Type = Type.MAVEN,
     val name: String,
     val url: URI,
     val username: String?,
@@ -40,10 +35,14 @@ data class Repository(
         IVY;
 
         internal object Deserializer : StdDeserializer<Type>(Type::class.java) {
+            private fun readResolve(): Any = Deserializer
+            @Suppress("ConstPropertyName")
             private const val serialVersionUID: Long = 4371258286182194375L
 
             override fun deserialize(parser: JsonParser, context: DeserializationContext): Type {
-                return valueOf(parser.text.uppercase())
+                val text = parser.text
+                text ?: return MAVEN
+                return valueOf(text.uppercase())
             }
         }
     }

@@ -15,31 +15,22 @@
 
 ### 简介
 
-> 待补充
+> 详情见 [Gradle Plugin Central](https://plugins.gradle.org/plugin/team.idealstate.sugar.gradle.plugin)
 
 ### 如何使用
-
-#### Maven
-```xml
-<!--pom.xml-->
-<dependency>
-    <groupId>team.idealstate.sugar</groupId>
-    <artifactId>sugar-gradle</artifactId>
-    <version>${version}</version>
-</dependency>
-```
 
 #### Gradle
 ```groovy
 // build.gradle
-dependencies {
-    implementation "team.idealstate.sugar:sugar-gradle:${version}"
+plugins {
+    id "team.idealstate.sugar.gradle.plugin" version "${version}"
 }
 ```
+
 ```kotlin
 // build.gradle.kts
-dependencies {
-    implementation("team.idealstate.sugar:sugar-gradle:${version}")
+plugins {
+    id("team.idealstate.sugar.gradle.plugin") version "$version"
 }
 ```
 

@@ -21,20 +21,20 @@ import kotlin.reflect.KClass
 @Target(AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.RUNTIME)
 @MustBeDocumented
-annotation class Metadata(
+annotation class PluginMetadata(
     val id: String,
     val group: String,
     val name: String
 ) {
     companion object {
         @JvmStatic
-        fun of(type: KClass<out GradlePlugin>): Metadata {
+        fun of(type: KClass<out GradlePlugin>): PluginMetadata {
             return of(type.java)
         }
 
         @JvmStatic
-        fun of(type: Class<out GradlePlugin>): Metadata {
-            return type.getDeclaredAnnotation(Metadata::class.java)!!
+        fun of(type: Class<out GradlePlugin>): PluginMetadata {
+            return type.getDeclaredAnnotation(PluginMetadata::class.java)!!
         }
     }
 }

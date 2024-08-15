@@ -1,15 +1,14 @@
 [[repositories]]
-type = "maven"
 name = "sonatype-public"
-url = "https://oss.sonatype.org/content/groups/public/"
+url = "https://s01.oss.sonatype.org/content/groups/public/"
 
 #[[repositories]]
+## 存储库类型（可选）：默认为 maven
 #type = "maven"
 #name = "aliyun-public"
 #url = "https://maven.aliyun.com/repository/public/"
 #
 #[[repositories]]
-#type = "maven"
 #name = "xxx-private"
 #url = "https://xxx.xxx.xxx/repository/private/"
 #username = "xxx"

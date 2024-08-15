@@ -16,11 +16,6 @@
 
 package team.idealstate.sugar.gradle.plugin.publish.config.publication
 
-/**
- * @date 2024/3/17 22:33
- * @author ketikai
- * @since 1.0.0
- */
 data class Developer(
     val id: String,
     val name: String,

@@ -16,11 +16,6 @@
 
 package team.idealstate.sugar.gradle.plugin.java.config
 
-/**
- * @date 2024/3/19 19:59
- * @author ketikai
- * @since 1.0.0
- */
 data class JavaConfig(
     val language: Language,
     val file: File

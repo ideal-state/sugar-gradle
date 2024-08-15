@@ -22,11 +22,6 @@ import team.idealstate.sugar.gradle.plugin.publish.config.publication.Organizati
 import team.idealstate.sugar.gradle.plugin.publish.config.publication.Scm
 import java.net.URI
 
-/**
- * @date 2024/3/18 17:56
- * @author ketikai
- * @since 1.0.0
- */
 data class PublicationConfig(
     val description: String?,
     val url: URI?,

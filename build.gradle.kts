@@ -2,12 +2,13 @@ plugins {
     id("idea")
     id("java-gradle-plugin")
     id("com.gradle.plugin-publish") version "1.2.1"
+    id("signing")
     kotlin("jvm") version "1.9.20"
     id("org.jetbrains.dokka") version "1.9.20"
 }
 
 group = "team.idealstate.sugar"
-version = "1.0.0"
+version = "0.1.0"
 
 val javaLanguageVersion = 8
 idea {
@@ -69,7 +70,13 @@ publishing {
             name = "build"
             url = uri("file://${projectDir}/build/repository/")
         }
+        mavenLocal()
     }
+}
+
+signing {
+    useGpgCmd()
+    sign(publishing.publications)
 }
 
 tasks.processResources {

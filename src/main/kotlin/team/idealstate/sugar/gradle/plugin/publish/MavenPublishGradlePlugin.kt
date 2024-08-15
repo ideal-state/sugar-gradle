@@ -23,17 +23,12 @@ import org.gradle.api.publish.maven.MavenPublication
 import org.gradle.plugins.signing.SigningExtension
 import team.idealstate.sugar.gradle.plugin.ConfigSupport
 import team.idealstate.sugar.gradle.plugin.ConfigurableGradlePlugin
-import team.idealstate.sugar.gradle.plugin.Metadata
+import team.idealstate.sugar.gradle.plugin.PluginMetadata
 import team.idealstate.sugar.gradle.plugin.SugarGradlePlugin
 import team.idealstate.sugar.gradle.plugin.java.JavaGradlePlugin
 import team.idealstate.sugar.gradle.plugin.publish.config.PublicationConfig
 
-/**
- * @date 2024/3/20 23:23
- * @author ketikai
- * @since 1.0.0
- */
-@Metadata("team.idealstate.sugar.gradle.plugin.publish", "sugar-gradle", "publish")
+@PluginMetadata("team.idealstate.sugar.gradle.plugin.publish", "sugar-gradle", "publish")
 open class MavenPublishGradlePlugin : ConfigurableGradlePlugin<PublicationConfig>(
     ConfigSupport.TOML,
     DEFAULT_CONFIG_NAME,
@@ -42,8 +37,8 @@ open class MavenPublishGradlePlugin : ConfigurableGradlePlugin<PublicationConfig
 
     init {
         dependsOn(
-            Metadata.of(SugarGradlePlugin::class.java).id,
-            Metadata.of(JavaGradlePlugin::class.java).id,
+            PluginMetadata.of(SugarGradlePlugin::class.java).id,
+            PluginMetadata.of(JavaGradlePlugin::class.java).id,
             "maven-publish"
         )
     }
@@ -57,6 +52,7 @@ open class MavenPublishGradlePlugin : ConfigurableGradlePlugin<PublicationConfig
                 it.name = "Build"
                 it.url = project.uri("file://${project.projectDir}/build/repository")
             }
+            handler.mavenLocal()
         }
         val publications = publishingExtension.publications
         val sugarPublication = publications.create(

@@ -17,11 +17,6 @@
 import org.gradle.api.publish.PublicationContainer
 import org.gradle.api.publish.maven.MavenPublication
 
-/**
- * @date 2024/3/21 11:41
- * @author ketikai
- * @since 1.0.0
- */
 
 val PublicationContainer.sugarPublication: MavenPublication
     get() = named("sugar", MavenPublication::class.java).get()

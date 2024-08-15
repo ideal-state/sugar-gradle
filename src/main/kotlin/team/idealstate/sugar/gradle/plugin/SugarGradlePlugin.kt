@@ -18,12 +18,7 @@ package team.idealstate.sugar.gradle.plugin
 
 import team.idealstate.sugar.gradle.plugin.config.SugarConfig
 
-/**
- * @date 2024/3/17 20:16
- * @author ketikai
- * @since 1.0.0
- */
-@Metadata("team.idealstate.sugar.gradle.plugin", "sugar-gradle", "sugar-gradle")
+@PluginMetadata("team.idealstate.sugar.gradle.plugin", "sugar-gradle", "sugar-gradle")
 open class SugarGradlePlugin : ConfigurableGradlePlugin<SugarConfig>(
     ConfigSupport.TOML,
     DEFAULT_CONFIG_NAME,
