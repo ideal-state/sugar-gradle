@@ -19,11 +19,6 @@ package team.idealstate.sugar.gradle.plugin
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.dataformat.toml.TomlMapper
 
-/**
- * @date 2024/3/20 23:53
- * @author ketikai
- * @since 1.0.0
- */
 interface ConfigSupport {
     
     fun build(): ObjectMapper

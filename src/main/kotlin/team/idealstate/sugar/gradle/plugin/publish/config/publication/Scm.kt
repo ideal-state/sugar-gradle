@@ -18,11 +18,6 @@ package team.idealstate.sugar.gradle.plugin.publish.config.publication
 
 import java.net.URI
 
-/**
- * @date 2024/3/18 17:48
- * @author ketikai
- * @since 1.0.0
- */
 data class Scm(
     val url: URI,
     val connection: URI,

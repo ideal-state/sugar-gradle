@@ -17,19 +17,14 @@
 package team.idealstate.sugar.gradle.plugin.repository
 
 import team.idealstate.sugar.gradle.plugin.ConfigSupport
-import team.idealstate.sugar.gradle.plugin.ConfigurableGradlePlugin
-import team.idealstate.sugar.gradle.plugin.Metadata
-import team.idealstate.sugar.gradle.plugin.SugarGradlePlugin
+import team.idealstate.sugar.gradle.plugin.ConfigurableGradleProjectPlugin
+import team.idealstate.sugar.gradle.plugin.PluginMetadata
+import team.idealstate.sugar.gradle.plugin.SugarGradleProjectPlugin
 import team.idealstate.sugar.gradle.plugin.repository.config.Repository
 import team.idealstate.sugar.gradle.plugin.repository.config.RepositoryConfig
 
-/**
- * @date 2024/3/20 16:49
- * @author ketikai
- * @since 1.0.0
- */
-@Metadata("team.idealstate.sugar.gradle.plugin.repository", "sugar-gradle", "repository")
-open class RepositoryGradlePlugin : ConfigurableGradlePlugin<RepositoryConfig>(
+@PluginMetadata("team.idealstate.sugar.gradle.plugin.repository", "sugar-gradle", "repository")
+open class RepositoryGradleProjectPlugin : ConfigurableGradleProjectPlugin<RepositoryConfig>(
     ConfigSupport.TOML,
     DEFAULT_CONFIG_NAME,
     RepositoryConfig::class.java
@@ -37,7 +32,7 @@ open class RepositoryGradlePlugin : ConfigurableGradlePlugin<RepositoryConfig>(
 
     init {
         dependsOn(
-            Metadata.of(SugarGradlePlugin::class.java).id
+            PluginMetadata.of(SugarGradleProjectPlugin::class.java).id
         )
     }
 

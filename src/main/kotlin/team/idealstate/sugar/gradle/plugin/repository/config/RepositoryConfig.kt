@@ -16,11 +16,6 @@
 
 package team.idealstate.sugar.gradle.plugin.repository.config
 
-/**
- * @date 2024/3/20 16:59
- * @author ketikai
- * @since 1.0.0
- */
 data class RepositoryConfig(
     val repositories: List<Repository> = emptyList()
 )

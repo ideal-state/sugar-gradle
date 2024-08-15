@@ -14,8 +14,13 @@
  *    limitations under the License.
  */
 
-package team.idealstate.sugar.gradle.plugin.java.config
+package team.idealstate.sugar.gradle.plugin
 
-data class File(
-    val encoding: String,
-)
+import org.gradle.api.Plugin
+import org.gradle.api.initialization.Settings
+
+open class SugarGradleSettingsPlugin: Plugin<Settings> {
+    override fun apply(target: Settings) {
+
+    }
+}

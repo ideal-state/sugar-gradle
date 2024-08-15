@@ -7,3 +7,7 @@
 /dataSources/
 /dataSources.local.xml
 /git_toolbox_blame.xml
+/git_toolbox_prj.xml
+/GitCommitMessageStorage.xml
+/jarRepositories.xml
+/gradle.xml

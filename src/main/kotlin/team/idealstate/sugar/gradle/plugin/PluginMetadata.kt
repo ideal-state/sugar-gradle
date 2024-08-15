@@ -14,8 +14,27 @@
  *    limitations under the License.
  */
 
-package team.idealstate.sugar.gradle.plugin.java.config
+package team.idealstate.sugar.gradle.plugin
 
-data class File(
-    val encoding: String,
-)
+import kotlin.reflect.KClass
+
+@Target(AnnotationTarget.CLASS)
+@Retention(AnnotationRetention.RUNTIME)
+@MustBeDocumented
+annotation class PluginMetadata(
+    val id: String,
+    val group: String,
+    val name: String
+) {
+    companion object {
+        @JvmStatic
+        fun of(type: KClass<out GradleProjectPlugin>): PluginMetadata {
+            return of(type.java)
+        }
+
+        @JvmStatic
+        fun of(type: Class<out GradleProjectPlugin>): PluginMetadata {
+            return type.getDeclaredAnnotation(PluginMetadata::class.java)!!
+        }
+    }
+}

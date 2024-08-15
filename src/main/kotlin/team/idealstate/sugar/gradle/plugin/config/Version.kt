@@ -16,13 +16,9 @@
 
 package team.idealstate.sugar.gradle.plugin.config
 
-/**
- * @date 2024/3/18 17:42
- * @author ketikai
- * @since 1.0.0
- */
 data class Version(
     val major: Int,
     val minor: Int,
-    val revision: Int
+    val revision: Int,
+    val tag: String? = null
 )

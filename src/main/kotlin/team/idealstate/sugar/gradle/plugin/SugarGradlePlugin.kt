@@ -16,23 +16,24 @@
 
 package team.idealstate.sugar.gradle.plugin
 
-import team.idealstate.sugar.gradle.plugin.config.SugarConfig
+import org.gradle.api.Plugin
+import org.gradle.api.Project
+import org.gradle.api.initialization.Settings
 
-/**
- * @date 2024/3/17 20:16
- * @author ketikai
- * @since 1.0.0
- */
-@Metadata("team.idealstate.sugar.gradle.plugin", "sugar-gradle", "sugar-gradle")
-open class SugarGradlePlugin : ConfigurableGradlePlugin<SugarConfig>(
-    ConfigSupport.TOML,
-    DEFAULT_CONFIG_NAME,
-    SugarConfig::class.java
-) {
+open class SugarGradlePlugin: Plugin<Any> {
+    override fun apply(target: Any) {
+        when (target) {
+            is Settings -> {
+                target.plugins.apply(SugarGradleSettingsPlugin::class.java)
+            }
 
-    override fun apply() {
-        project.group = config.group
-        val (major, minor, revision) = config.version
-        project.version = "$major.$minor.$revision"
+            is Project -> {
+                target.plugins.apply(SugarGradleProjectPlugin::class.java)
+            }
+
+            else -> {
+                throw UnsupportedOperationException("unsupported target type: ${target.javaClass.name}")
+            }
+        }
     }
 }

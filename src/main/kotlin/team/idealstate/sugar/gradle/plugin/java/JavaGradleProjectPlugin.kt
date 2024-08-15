@@ -27,31 +27,26 @@ import org.gradle.jvm.toolchain.JavaLanguageVersion
 import org.gradle.jvm.toolchain.JvmVendorSpec
 import org.gradle.language.jvm.tasks.ProcessResources
 import team.idealstate.sugar.gradle.plugin.ConfigSupport
-import team.idealstate.sugar.gradle.plugin.ConfigurableGradlePlugin
-import team.idealstate.sugar.gradle.plugin.Metadata
-import team.idealstate.sugar.gradle.plugin.SugarGradlePlugin
+import team.idealstate.sugar.gradle.plugin.ConfigurableGradleProjectPlugin
+import team.idealstate.sugar.gradle.plugin.PluginMetadata
+import team.idealstate.sugar.gradle.plugin.SugarGradleProjectPlugin
 import team.idealstate.sugar.gradle.plugin.java.config.JavaConfig
-import team.idealstate.sugar.gradle.plugin.repository.RepositoryGradlePlugin
+import team.idealstate.sugar.gradle.plugin.repository.RepositoryGradleProjectPlugin
 import java.io.File
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 
-/**
- * @date 2024/3/19 15:56
- * @author ketikai
- * @since 1.0.0
- */
-@Metadata("team.idealstate.sugar.gradle.plugin.java", "sugar-gradle", "java")
-open class JavaGradlePlugin : ConfigurableGradlePlugin<JavaConfig>(
+@PluginMetadata("team.idealstate.sugar.gradle.plugin.java", "sugar-gradle", "java")
+open class JavaGradleProjectPlugin : ConfigurableGradleProjectPlugin<JavaConfig>(
     ConfigSupport.TOML,
     DEFAULT_CONFIG_NAME,
     JavaConfig::class.java
 ) {
 
     init {
-        super.dependsOn(
-            Metadata.of(SugarGradlePlugin::class.java).id,
-            Metadata.of(RepositoryGradlePlugin::class.java).id,
+        dependsOn(
+            PluginMetadata.of(SugarGradleProjectPlugin::class.java).id,
+            PluginMetadata.of(RepositoryGradleProjectPlugin::class.java).id,
             "java",
             "java-library"
         )
@@ -61,8 +56,8 @@ open class JavaGradlePlugin : ConfigurableGradlePlugin<JavaConfig>(
         configureJavaPluginExtension()
 
         val encoding = config.file.encoding
-        configureJavaCompileTask(encoding)
         configureProcessResourcesTask()
+        configureJavaCompileTask(encoding)
         configureJavadocTask(encoding)
         configureSourcesJarTask()
         configureJavadocJarTask()
@@ -97,8 +92,7 @@ open class JavaGradlePlugin : ConfigurableGradlePlugin<JavaConfig>(
             "group" to project.group,
             "name" to project.name,
             "version" to project.version,
-            "java-language-version" to config.language.version,
-            "build-date" to ZonedDateTime.now().format(DateTimeFormatter.ISO_ZONED_DATE_TIME)
+            "timestamp" to ZonedDateTime.now().format(DateTimeFormatter.ISO_ZONED_DATE_TIME)
         ))
     }
 
@@ -177,20 +171,30 @@ open class JavaGradlePlugin : ConfigurableGradlePlugin<JavaConfig>(
     }
 
     private fun configureJavadocTask(encoding: String) {
-        project.tasks.withType(Javadoc::class.java) {
+        val doclet = project.configurations.register("doclet").get()
+        project.tasks.named("javadoc", Javadoc::class.java) {
+            it.dependsOn(
+                "copyCopyright",
+                "copyDependencyCopyright"
+            )
             it.options { options ->
-                options as StandardJavadocDocletOptions
-                options.charSet(encoding)
+                val docletFiles = doclet.allArtifacts.files.files
+                if (docletFiles.isEmpty()) {
+                    if (options is StandardJavadocDocletOptions) {
+                        options.charSet(encoding)
+                        options.docEncoding(encoding)
+                        options.docTitle(options.windowTitle)
+                        options.author(true)
+                        options.version(true)
+                    }
+                } else {
+                    options.docletpath.addAll(docletFiles)
+                }
                 options.encoding(encoding)
-                options.docEncoding(encoding)
                 options.locale("zh_CN")
                 options.windowTitle("${project.name}-${project.version} API")
-                options.docTitle(options.windowTitle)
-                options.author(true)
-                options.version(true)
                 options.jFlags("-Dfile.encoding=${encoding}")
             }
-            it.isFailOnError = false
         }
     }
 }

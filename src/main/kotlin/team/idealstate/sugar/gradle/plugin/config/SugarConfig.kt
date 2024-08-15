@@ -16,11 +16,6 @@
 
 package team.idealstate.sugar.gradle.plugin.config
 
-/**
- * @date 2024/3/17 22:27
- * @author ketikai
- * @since 1.0.0
- */
 data class SugarConfig(
     val group: String,
     val version: Version,

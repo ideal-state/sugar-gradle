@@ -16,25 +16,23 @@
 
 package team.idealstate.sugar.gradle.plugin
 
-import kotlin.reflect.KClass
+import team.idealstate.sugar.gradle.plugin.config.SugarConfig
 
-@Target(AnnotationTarget.CLASS)
-@Retention(AnnotationRetention.RUNTIME)
-@MustBeDocumented
-annotation class Metadata(
-    val id: String,
-    val group: String,
-    val name: String
+@PluginMetadata("team.idealstate.sugar.gradle.plugin", "sugar-gradle", "sugar-gradle")
+open class SugarGradleProjectPlugin : ConfigurableGradleProjectPlugin<SugarConfig>(
+    ConfigSupport.TOML,
+    DEFAULT_CONFIG_NAME,
+    SugarConfig::class.java
 ) {
-    companion object {
-        @JvmStatic
-        fun of(type: KClass<out GradlePlugin>): Metadata {
-            return of(type.java)
-        }
 
-        @JvmStatic
-        fun of(type: Class<out GradlePlugin>): Metadata {
-            return type.getDeclaredAnnotation(Metadata::class.java)!!
+    override fun apply() {
+        project.group = config.group
+        val (major, minor, revision, tag) = config.version
+        val suffix = if (tag == null) {
+            ""
+        } else {
+            "-$tag"
         }
+        project.version = "$major.$minor.$revision$suffix"
     }
 }
